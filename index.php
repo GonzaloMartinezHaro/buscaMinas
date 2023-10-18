@@ -15,12 +15,13 @@ $argus = explode('/', $paths);
 unset($argus[0]);
 
 
-
+$data = json_decode($datosRecibidos,true);
 
 
 if ($requestMethod == 'POST') {
 
     if ($argus[1] == 'CrearTablero') {
+
             $data = json_decode($datosRecibidos,true);
             Controlador::insertarTablero(Controlador::CrearTableroPredefinida($data['user_id']));
             
@@ -46,7 +47,10 @@ if ($requestMethod == 'POST') {
             echo json_encode($respuesta);
 
         }else if ($argus[1] == 'CrearPersona') {
-            $data = json_decode($datosRecibidos,true);
+
+            if(Controlador::RevisarAdmin($argus[2]) == true){
+
+                $data = json_decode($datosRecibidos,true);
             Controlador::insertarPersona(Controlador::crearPersona($data['password'],$data['nombre'],$data['email'],$data['admin']));
             $cod = 201;
             $mes = "Perfe";
@@ -55,7 +59,31 @@ if ($requestMethod == 'POST') {
                 'Cod:' => $cod,
                 'Mensaje:' => $mes,
             ];
-            echo json_encode($respuesta);    
+            echo json_encode($respuesta);   
+            }else{
+                echo json_encode('No eres administrador');
+            }
+             
+        
+        }else if ($argus[1] == 'Jugar' && $data != null) {
+
+           Controlador::iniciarJuego($data['id_tablero'],$data['posicion']);
+
+             
+        
+        }else if ($argus[1] == 'Jugar') {
+
+            Controlador::TablerosActivos(Conexion::seleccionarTodasTableros(),$argus[2]);
+            $cod = 201;
+            $mes = "Perfe";
+            header(Constantes::$headerMssg . $cod . ' ' . $mes);
+            $respuesta = [
+                'Cod:' => $cod,
+                'Mensaje:' => $mes,
+            ];
+            echo json_encode($respuesta); 
+            
+             
         
         }else{
 
@@ -72,16 +100,135 @@ if ($requestMethod == 'POST') {
 
 
       
-    }if($requestMethod == 'GET'){
+    }else if($requestMethod == 'GET'){
 
-        if ($argus[1] == 'ListaUsuarios') {
+        if ($argus[1] == 'ListaPersonas') {
+
+            if(Controlador::RevisarAdmin($argus[2]) == true){
+                Controlador::ListaPersonas();
+                $cod = 201;
+                $mes = "Perfe";
+                header(Constantes::$headerMssg . $cod . ' ' . $mes);
+                $respuesta = [
+                    'Cod:' => $cod,
+                    'Mensaje:' => $mes,
+                ];
+                echo json_encode($respuesta); 
+            }else{
+                echo json_encode('No eres administrador');
+            }
             
-            Controlador::ListaUsuarios();
 
-        }else if ($argus[1] == 'CrearTableroPersonalizada') {
+        }else if ($argus[1] == 'BuscarPersona') {
             
+            if(Controlador::RevisarAdmin($argus[2]) == true){
+                Controlador::BuscarPersona($argus[3],$argus[4]);
+                $cod = 201;
+                $mes = "Perfe";
+                header(Constantes::$headerMssg . $cod . ' ' . $mes);
+                $respuesta = [
+                    'Cod:' => $cod,
+                    'Mensaje:' => $mes,
+                ];
+                echo json_encode($respuesta); 
+            }else{
+                echo json_encode('No eres administrador');
+            }
 
-        }else if ($argus[1] == 'CrearPersona') {
+        }else if ($argus[1] == 'Ranking') {
+             
+            Controlador::OrdenarPersonasPorPartidasGanadas(Conexion::seleccionarTodasPersonas());
+            $cod = 201;
+            $mes = "Perfe";
+            header(Constantes::$headerMssg . $cod . ' ' . $mes);
+            $respuesta = [
+                'Cod:' => $cod,
+                'Mensaje:' => $mes,
+            ];
+            echo json_encode($respuesta); 
+        
+        }else{
+
+            $cod = 404;
+            $mes = "Introdusca valores correctos";
+            header(Constantes::$headerMssg . $cod . ' ' . $mes);
+            $respuesta = [
+                'Cod:' => $cod,
+                'Mensaje:' => $mes,
+            ];
+            echo json_encode($respuesta);
+
+        }
+
+
+    }else if($requestMethod == 'PUT'){
+
+        if ($argus[1] == 'ModificarPersona') {
+            
+            if(Controlador::RevisarAdmin($argus[2]) == true){
+                $data = json_decode($datosRecibidos,true);
+                Controlador::ModificarPersona($argus[3],$data);
+                $cod = 201;
+                $mes = "Perfe";
+                header(Constantes::$headerMssg . $cod . ' ' . $mes);
+                $respuesta = [
+                    'Cod:' => $cod,
+                    'Mensaje:' => $mes,
+            ];
+                echo json_encode($respuesta);
+            }else{
+                echo json_encode('No eres administrador');
+            }
+                
+
+        }else if ($argus[1] == 'Rendirse') {
+            
+           
+            $data = json_decode($datosRecibidos,true);
+            Controlador::Rendirse($argus[2],$data['id_tablero']);
+            $cod = 201;
+            $mes = "Perfe";
+            header(Constantes::$headerMssg . $cod . ' ' . $mes);
+            $respuesta = [
+                'Cod:' => $cod,
+                'Mensaje:' => $mes,
+            ];
+            echo json_encode($respuesta);   
+             
+        
+        }else{
+
+            $cod = 404;
+            $mes = "Introdusca valores correctos";
+            header(Constantes::$headerMssg . $cod . ' ' . $mes);
+            $respuesta = [
+                'Cod:' => $cod,
+                'Mensaje:' => $mes,
+            ];
+            echo json_encode($respuesta);
+
+        }
+
+
+    }else if($requestMethod == 'DELETE'){
+
+        if ($argus[1] == 'EliminarPersona') {
+            
+            if(Controlador::RevisarAdmin($argus[2]) == true){
+                $data = json_decode($datosRecibidos,true);
+                Controlador::EliminarPersona($data['id_persona']);
+                $cod = 201;
+                $mes = "Perfe";
+                header(Constantes::$headerMssg . $cod . ' ' . $mes);
+                $respuesta = [
+                    'Cod:' => $cod,
+                    'Mensaje:' => $mes,
+                ];
+                echo json_encode($respuesta);
+            }else{
+                echo json_encode('No eres administrador');
+            }
+              
              
         
         }else{

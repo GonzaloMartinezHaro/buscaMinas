@@ -1,0 +1,2 @@
+El funcionamiento de la aplicacion consiste en introducir en la url la acción deseada y acontinuación el id del usuario con el que deseas acceder.
+En función de cada operación deberas introducir mas argumentos a la url o pasarlo en formato JSON.

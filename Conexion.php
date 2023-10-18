@@ -25,7 +25,7 @@ Class Conexion{
 
     public static function seleccionarPersona($email,$pass){
         if (self::conectar()==0){
-            $consulta = "SELECT * FROM PERSONAS WHERE email = ? AND pass = ?";
+            $consulta = "SELECT * FROM PERSONAS WHERE EMAIL = ? AND CONTRASENA = ?";
             $stmt = mysqli_prepare(self::$conexion, $consulta);
             mysqli_stmt_bind_param($stmt, "ss", $email,$pass);
             mysqli_stmt_execute($stmt);
@@ -35,7 +35,7 @@ Class Conexion{
                 $p = new Persona($fila["ID"], $fila["NOMBRE"], $fila["CONTRASENA"], $fila["EMAIL"], $fila["PARTIDASGANADAS"], $fila["PARTIDASJUGADAS"], $fila["ADMIN"]);
                 $correcto[] = $p;
                 self::desconectar();
-                return ($fila['id']);
+                return ($correcto);
             }
             else {
                 self::desconectar();
@@ -114,7 +114,7 @@ Class Conexion{
     
 
 
-    public static function borrarPersona($id)
+    public static function EliminarPersona($id)
     {
         self::conectar();
         $correcto = false;
@@ -127,20 +127,21 @@ Class Conexion{
                 $correcto = mysqli_query(self::$conexion, $query);
             } catch (Exception $e) {
                 $correcto = false;
+                echo json_encode("Error en la ejecución de la consulta: " . $e->getMessage());
             }
             self::desconectar();
         }
         return $correcto;
     }
 
-    public static function modificarContraseña($idCambiar, $data)
+    /*public static function modificarContraseña($idCambiar, $data)
     {
         $correcto = false;
         self::conectar();
         if (!self::$conexion) {
             die();
         } else {
-            $query = 'UPDATE personas SET password = ? where id = ?';
+            $query = 'UPDATE PERSONAS SET CONTRASENA = ? where ID = ?';
             $stmt = mysqli_prepare(self::$conexion, $query);
             mysqli_stmt_bind_param($stmt, "si", $data['password'], $idCambiar);
             try {
@@ -152,7 +153,7 @@ Class Conexion{
         }
         self::desconectar();
         return $correcto;
-    }
+    }*/
 
 
     public static function modificarPersona($idCambiar, $data){
@@ -161,9 +162,9 @@ Class Conexion{
         if (!self::$conexion) {
             die();
         } else {
-            $query = 'UPDATE personas SET nombre = ?, email = ? where id = ?';
+            $query = 'UPDATE PERSONAS SET NOMBRE = ?, EMAIL = ?, CONTRASENA = ? where ID = ?';
             $stmt = mysqli_prepare(self::$conexion, $query);
-            mysqli_stmt_bind_param($stmt, "ssi", $data['Nombre'], $data['email'], $idCambiar);
+            mysqli_stmt_bind_param($stmt, "sssi", $data['nombre'], $data['email'], $data['contraseña'], $idCambiar);
             try {
                 mysqli_stmt_execute($stmt);
                 $correcto = true;
@@ -212,6 +213,119 @@ Class Conexion{
             self::desconectar();
         }
         
+        return $correcto;
+    }
+
+    public static function rendirse($id_persona, $id_tablero){
+        $correcto = false;
+        self::conectar();
+        if (!self::$conexion) {
+            echo json_encode("Error");
+        } else {
+            $rendirse = 1;
+            $query = 'UPDATE TABLERO SET FINALIZADO = ? WHERE ID = ? AND ID_PERSONA = ?';
+            $stmt = mysqli_prepare(self::$conexion, $query);
+            mysqli_stmt_bind_param($stmt, "iii", $rendirse, $id_tablero, $id_persona);
+            try {
+                mysqli_stmt_execute($stmt);
+                $correcto = true;
+            } catch (Exception $e) {
+                $correcto = false;
+                echo json_encode("Error al ejecutar la consulta: " . $e->getMessage());
+            }
+        }
+        self::desconectar();
+        return $correcto;
+    }
+
+    public static function RevisarAdmin($id_persona){
+        if (self::conectar()==0){
+            $consulta = "SELECT ADMIN FROM PERSONAS WHERE ID = ?";
+            $stmt = mysqli_prepare(self::$conexion, $consulta);
+            mysqli_stmt_bind_param($stmt, "s", $id_persona);
+            mysqli_stmt_execute($stmt);
+            $correcto_query = mysqli_stmt_get_result($stmt);
+            if ($fila = mysqli_fetch_array($correcto_query)) {
+                $admin = $fila['ADMIN'];
+                self::desconectar();
+                return ($admin);
+            }
+            else {
+                self::desconectar();
+                return 0;
+            }
+        }
+        else {
+            return -1; //conexión falla.
+        }
+        
+    }
+
+
+
+    public static function seleccionarTodasTableros()
+    {
+        self::conectar();
+        if (!self::$conexion) {
+            die();
+        } else {
+            $consulta = "SELECT * FROM TABLERO";
+            $stmt = mysqli_prepare(self::$conexion, $consulta);
+            mysqli_stmt_execute($stmt);
+            $correcto = [];
+            $correcto_query = mysqli_stmt_get_result($stmt);
+            while ($fila = mysqli_fetch_array($correcto_query)) {
+                $t = new Tablero($fila["ID"] , $fila["ID_PERSONA"], $fila["TABLERO_OCULTO"], $fila["TABLERO_JUGADOR"], $fila["FINALIZADO"]);
+                $correcto[] = $t;
+            }
+            mysqli_free_result($correcto_query);
+        }
+        self::desconectar();
+        return $correcto;
+    }
+
+    public static function seleccionarTablero($id_tablero){
+        if (self::conectar()==0){
+            $consulta = "SELECT * FROM TABLERO WHERE ID = ?";
+            $stmt = mysqli_prepare(self::$conexion, $consulta);
+            mysqli_stmt_bind_param($stmt, "i", $id_tablero);
+            mysqli_stmt_execute($stmt);
+           
+            $correcto_query = mysqli_stmt_get_result($stmt);
+            if ($fila = mysqli_fetch_array($correcto_query)) {
+                $t = new Tablero($fila["ID"] , $fila["ID_PERSONA"], $fila["TABLERO_OCULTO"], $fila["TABLERO_JUGADOR"], $fila["FINALIZADO"]);
+               
+                self::desconectar();
+                return ($t);
+            }
+            else {
+                self::desconectar();
+                return 0;
+            }
+        }
+        else {
+            return -1; //conexión falla.
+        }
+        
+    }
+
+    public static function actualizarTablero($id_tablero, $tableroJugador){
+        $correcto = false;
+        self::conectar();
+        if (!self::$conexion) {
+            die();
+        } else {
+            $query = 'UPDATE TABLERO SET TABLERO_JUGADOR = ? where ID = ?';
+            $stmt = mysqli_prepare(self::$conexion, $query);
+            mysqli_stmt_bind_param($stmt, "si", $tableroJugador, $id_tablero);
+            try {
+                mysqli_stmt_execute($stmt);
+                $correcto = true;
+            } catch (Exception $e) {
+                $correcto = false;
+            }
+        }
+        self::desconectar();
         return $correcto;
     }
     
