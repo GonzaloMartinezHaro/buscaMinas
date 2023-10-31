@@ -1,5 +1,6 @@
 Guia de Uso
 
+
 -ListarPersonas
 
 Se pasa por la URL mediante el verbo GET, 'ListaPersona' para indicar la funcion y 3 que indica el id del usuario, con el cual se comprobara si es amdministraador o no.
@@ -13,6 +14,9 @@ Succes Response:
   
 {"Cod:":201,"Mensaje:":"TODO OK","Personas":[{"id":1,"password":"Benito","nombre":"benito1234","email":"benito@gmail","partidasGanadas":0,"partidasJugadas":0,"admin":0},{"id":3,"password":"Pedro","nombre":"Pedro","email":"Pedro@gmail","partidasGanadas":3,"partidasJugadas":0,"admin":1},{"id":4,"password":"Juan","nombre":"Juan","email":"benito@gmail","partidasGanadas":1,"partidasJugadas":0,"admin":0},{"id":5,"password":"Pepe","nombre":"Pepe","email":"Pepe@gmail","partidasGanadas":2,"partidasJugadas":0,"admin":0},{"id":6,"password":"Jose","nombre":"Jose","email":"Jose@gmail","partidasGanadas":4,"partidasJugadas":0,"admin":0}]}{"Cod:":201,"Mensaje:":"Perfe"}
 
+
+
+
 -BuscarPersona
 
 Se pasa por la URL mediante el verbo GET, 'BuscarPersona' para indicar la funcion, 3 que indica el id del usuario, con el cual se comprobara si es amdministraador o no, y el email y la contraseña para busacar a la persona deseada.
@@ -25,6 +29,9 @@ Succes Response:
   Content:
 
 {"Cod:":201,"Mensaje:":"TODO OK","Personas":[{"id":1,"password":"Benito","nombre":"benito1234","email":"benito@gmail","partidasGanadas":0,"partidasJugadas":0,"admin":0}]}{"Cod:":201,"Mensaje:":"Perfe"}
+
+
+
 
 
 -Ranking
@@ -41,6 +48,9 @@ Succes Response:
 
 {"Cod:":201,"Mensaje:":"TODO OK","Personas":[{"id":6,"password":"Jose","nombre":"Jose","email":"Jose@gmail","partidasGanadas":4,"partidasJugadas":0,"admin":0},{"id":3,"password":"Pedro","nombre":"Pedro","email":"Pedro@gmail","partidasGanadas":3,"partidasJugadas":0,"admin":1},{"id":5,"password":"Pepe","nombre":"Pepe","email":"Pepe@gmail","partidasGanadas":2,"partidasJugadas":0,"admin":0},{"id":4,"password":"Juan","nombre":"Juan","email":"benito@gmail","partidasGanadas":1,"partidasJugadas":0,"admin":0},{"id":1,"password":"Benito","nombre":"benito1234","email":"benito@gmail","partidasGanadas":0,"partidasJugadas":0,"admin":0}]}{"Cod:":201,"Mensaje:":"Perfe"}
   
+
+
+
 
 -CrearTablero
 
@@ -62,6 +72,9 @@ Succes Response:
   Content:
 
   {"Cod:":201,"Mensaje:":"TODO OK","Inserccion":true}{"Cod:":201,"Mensaje:":"Perfe"}
+
+
+
 
 
 -CrearTableroPersonalizada
@@ -87,6 +100,9 @@ Succes Response:
   {"Cod:":201,"Mensaje:":"TODO OK","Inserccion":true}{"Cod:":201,"Mensaje:":"Perfe"}
 
 
+
+
+
 -CrearPersona
 
 Se pasa por la URL mediante el verbo POST, 'CrearPersona' para indicar la funcion y el id de la persona para comprobar si es administrador y en el body pasaremos la contraseña, el nombre, el email y si es o no administrador.
@@ -109,6 +125,9 @@ Succes Response:
   Content:
 
   {"Cod:":201,"Mensaje:":"TODO OK","Inserccion":true}{"Cod:":201,"Mensaje:":"Perfe"}
+
+
+
 
 
 -Jugar
@@ -163,6 +182,9 @@ Succes Response:
 
 
 
+
+
+
 -ModificarPersona
 
 Se pasa por la URL mediante el verbo PUT, 'ModificarPersona' para indicar la funcion, el id de la persona para comprobar si es administrador y el id de la perona que se quiere modificar. En el body pasaremos el nombre, el email y la contraseña.
@@ -185,6 +207,9 @@ Succes Response:
   {"Cod:":201,"Mensaje:":"TODO OK","Personas":true}{"Cod:":201,"Mensaje:":"Perfe"}
 
 
+
+
+
 -Rendirse
 
 Se pasa por la URL mediante el verbo PUT, 'Rendirse' para indicar la funcion, y el id de la persona que quiere rendirse. En el body se pasara el id del tablero que quiere finalizar.
@@ -203,6 +228,9 @@ Succes Response:
   Content:
 
 {"Cod:":201,"Mensaje:":"TODO OK","Personas":true}{"Cod:":201,"Mensaje:":"Perfe"}
+
+
+
 
 
 -EliminarPersona
