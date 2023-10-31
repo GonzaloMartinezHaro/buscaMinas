@@ -34,20 +34,6 @@ Succes Response:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -Ranking
 
 Se pasa por la URL mediante el verbo GET, 'Ranking' para indicar la funcion.
