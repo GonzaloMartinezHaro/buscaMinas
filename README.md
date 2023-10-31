@@ -11,8 +11,7 @@ Succes Response:
   Code:200
   Content:
   
-{"Cod:":201,"Mensaje:":"TODO OK","Personas":[{"id":1,"password":"Benito","nombre":"benito1234","email":"benito@asdf.com","partidasGanadas":0,"partidasJugadas":0,"admin":0},{"id":3,"password":"Pedro","nombre":"Pedro","email":"Pedro@Pedro.com","partidasGanadas":3,"partidasJugadas":0,"admin":1},{"id":4,"password":"Juan","nombre":"Juan","email":"Juan@Juan.com","partidasGanadas":1,"partidasJugadas":0,"admin":0},{"id":5,"password":"Pepe","nombre":"Pepe","email":"Pepe@Pepe.com","partidasGanadas":2,"partidasJugadas":0,"admin":0},{"id":6,"password":"Jose","nombre":"Jose","email":"Jose@Jose.com","partidasGanadas":4,"partidasJugadas":0,"admin":0}]}{"Cod:":201,"Mensaje:":"Perfe"}
-
+{"Cod:":201,"Mensaje:":"TODO OK","Personas":[{"id":1,"password":"Benito","nombre":"benito1234","email":"benito@gmail","partidasGanadas":0,"partidasJugadas":0,"admin":0},{"id":3,"password":"Pedro","nombre":"Pedro","email":"Pedro@gmail","partidasGanadas":3,"partidasJugadas":0,"admin":1},{"id":4,"password":"Juan","nombre":"Juan","email":"benito@gmail","partidasGanadas":1,"partidasJugadas":0,"admin":0},{"id":5,"password":"Pepe","nombre":"Pepe","email":"Pepe@gmail","partidasGanadas":2,"partidasJugadas":0,"admin":0},{"id":6,"password":"Jose","nombre":"Jose","email":"Jose@gmail","partidasGanadas":4,"partidasJugadas":0,"admin":0}]}{"Cod:":201,"Mensaje:":"Perfe"}
 
 -BuscarPersona
 
@@ -25,7 +24,7 @@ Succes Response:
   Code:201
   Content:
 
-{"Cod:":201,"Mensaje:":"TODO OK","Personas":[{"id":1,"password":"Benito","nombre":"benito1234","email":"benito","partidasGanadas":0,"partidasJugadas":0,"admin":0}]}{"Cod:":201,"Mensaje:":"Perfe"}
+{"Cod:":201,"Mensaje:":"TODO OK","Personas":[{"id":1,"password":"Benito","nombre":"benito1234","email":"benito@gmail","partidasGanadas":0,"partidasJugadas":0,"admin":0}]}{"Cod:":201,"Mensaje:":"Perfe"}
 
 
 -Ranking
@@ -40,7 +39,7 @@ Succes Response:
   Code:201
   Content:
 
-{"Cod:":201,"Mensaje:":"TODO OK","Personas":[{"id":6,"password":"Jose","nombre":"Jose","email":"Jose@Jose.com","partidasGanadas":4,"partidasJugadas":0,"admin":0},{"id":3,"password":"Pedro","nombre":"Pedro","email":"Pedro.com","partidasGanadas":3,"partidasJugadas":0,"admin":1},{"id":5,"password":"Pepe","nombre":"Pepe","email":"Pepe@Pepe.com","partidasGanadas":2,"partidasJugadas":0,"admin":0},{"id":4,"password":"Juan","nombre":"Juan","email":"Juan@Juan.com","partidasGanadas":1,"partidasJugadas":0,"admin":0},{"id":1,"password":"Benito","nombre":"benito1234","email":"benito","partidasGanadas":0,"partidasJugadas":0,"admin":0}]}{"Cod:":201,"Mensaje:":"Perfe"}
+{"Cod:":201,"Mensaje:":"TODO OK","Personas":[{"id":6,"password":"Jose","nombre":"Jose","email":"Jose@gmail","partidasGanadas":4,"partidasJugadas":0,"admin":0},{"id":3,"password":"Pedro","nombre":"Pedro","email":"Pedro@gmail","partidasGanadas":3,"partidasJugadas":0,"admin":1},{"id":5,"password":"Pepe","nombre":"Pepe","email":"Pepe@gmail","partidasGanadas":2,"partidasJugadas":0,"admin":0},{"id":4,"password":"Juan","nombre":"Juan","email":"benito@gmail","partidasGanadas":1,"partidasJugadas":0,"admin":0},{"id":1,"password":"Benito","nombre":"benito1234","email":"benito@gmail","partidasGanadas":0,"partidasJugadas":0,"admin":0}]}{"Cod:":201,"Mensaje:":"Perfe"}
   
 
 -CrearTablero
